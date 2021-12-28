@@ -1,0 +1,14 @@
+{
+  "name": "dependencies-parser",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "start": "node -r dotenv/config index.js"
+  },
+  "dependencies": {
+    "@yarnpkg/lockfile": "^1.1.0",
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0"
+  },
+  "license": "MIT"
+}

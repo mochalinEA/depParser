@@ -1,0 +1,14 @@
+export const projects = [
+  {
+    id: 123,
+    name: 'project1',
+    packageJsonPath: 'package.json',
+    packageLockJsonPath: 'package-lock.json',
+  },
+  {
+    id: 333,
+    name: 'project2',
+    packageJsonPath: 'app/package.json',
+    yarnLockPath: 'app/yarn.lock',
+  }
+]

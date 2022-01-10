@@ -12,3 +12,10 @@ export const projects = [
     yarnLockPath: 'app/yarn.lock',
   }
 ]
+
+export const projectsByName = projects.reduce((acc, project) => {
+  const key = project.name;
+  acc[key] = project
+
+  return acc
+}, {})

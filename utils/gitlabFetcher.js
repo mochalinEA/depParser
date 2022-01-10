@@ -4,7 +4,7 @@ const GITLAB_API_TOKEN = process.env.GITLAB_API_TOKEN || ''
 
 export const fetchData = async (projectId, path) => {
   const filePath = path !== ''
-    ? path.replace(/\//g, '%2F') + '%2F'
+    ? path.replace(/\//g, '%2F')
     : ''
 
   const response = await axios({

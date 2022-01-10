@@ -1,59 +1,41 @@
-export const fixVersionsByPackageLock = (rawPackages, packageLock) => {
-  return rawPackages.map((rawPackage) => {
-    const { name, rawVersion, dependencyType } = rawPackage
-    const key = `${name}`
-
-    let packageLockVersion = rawVersion.replace(/[^\d.]/g, '')
+export const fixVersionsByPackageLock = (draftPackages, packageLock) => {
+  return draftPackages.map((rawPackage) => {
+    let { version } = rawPackage
 
     try {
-      packageLockVersion = packageLock[key].version
+      version = packageLock[rawPackage.name].version
     } catch (error) {
       // nothing to do
     }
 
     return {
-      name,
-      version: packageLockVersion,
-      dependencyType
+      ...rawPackage,
+      version
     }
   })
 }
 
-export const fixVersionsByYarnLock = (rawPackages, yarnLock) => {
-  return rawPackages.map((rawPackage) => {
-    const { name, rawVersion, dependencyType } = rawPackage
-    const key = `${name}@${rawVersion}`
-
-    let yarnLockVersion = rawVersion.replace(/[^\d.]/g, '')
+export const fixVersionsByYarnLock = (draftPackages, yarnLock) => {
+  return draftPackages.map((rawPackage) => {
+    let { version } = rawPackage
 
     try {
-      yarnLockVersion = yarnLock[key].version
+      const key = `${rawPackage.name}@${version}`
+      version = yarnLock[key].version
     } catch (error) {
       // nothing to do
     }
 
     return {
-      name,
-      version: yarnLockVersion,
-      dependencyType
+      ...rawPackage,
+      version,
     }
   })
 }
 
-export const fixVersions = (rawPackages) => {
-  return rawPackages.map((rawPackage) => {
-
-    return {
-      name: rawPackage.name,
-      version: rawPackage.rawVersion.replace(/[^\d.]/g, ''),
-      dependencyType: rawPackage.dependencyType
-    }
-  })
-}
-
-export const fixProjectId = (packages, projectId) => {
+export const fixProjectName = (packages, projectConfig) => {
   return packages.map((currentPackage) => ({
     ...currentPackage,
-    projectId
+    projectName: projectConfig.name
   }))
 }

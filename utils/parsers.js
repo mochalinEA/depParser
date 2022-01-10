@@ -13,10 +13,11 @@ export const parsePackageJson = (rawJson) => {
   const packages = []
 
   dependencyTypes.forEach((dependencyType) => {
-    const dependenciesById = parsedJson[dependencyType] || {}
+    const dependencies = parsedJson[dependencyType] || {}
 
-    Object.entries(dependenciesById).forEach(([name, rawVersion]) => {
-      packages.push({name, rawVersion, dependencyType})
+    Object.entries(dependencies).forEach(([name, rawVersion]) => {
+      const version = rawVersion.replace(/[^\d.]/g, '')
+      packages.push({name, version, dependencyType})
     })
   });
 

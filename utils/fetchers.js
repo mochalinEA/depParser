@@ -1,6 +1,6 @@
 import {fetchData} from './gitlabFetcher.js'
 import {parsePackageJson, parsePackageLockJson, parseYarnLock} from './parsers.js'
-import {fixProjectId, fixVersions, fixVersionsByPackageLock, fixVersionsByYarnLock} from './fixers.js'
+import {fixProjectName, fixVersionsByPackageLock, fixVersionsByYarnLock} from './fixers.js'
 
 const fetchRawPackages = async (projectConfig) => {
   try {
@@ -46,21 +46,21 @@ export const fetchProjectData = async (projectConfig) => {
     return []
   }
 
-  const rawPackages = await fetchRawPackages(projectConfig)
-
-  const packagesWithProjectId = await fixProjectId(rawPackages, projectConfig.id)
+  let draftPackages = await fetchRawPackages(projectConfig)
 
   if (projectConfig.packageLockJsonPath !== undefined) {
     const packageLockJson = await fetchPackageLockJson(projectConfig)
 
-    return fixVersionsByPackageLock(packagesWithProjectId, packageLockJson)
+    draftPackages = fixVersionsByPackageLock(draftPackages, packageLockJson)
   }
 
   if (projectConfig.yarnLockPath !== undefined) {
     const yarnLock = await fetchYarnLock(projectConfig)
 
-    return fixVersionsByYarnLock(packagesWithProjectId, yarnLock)
+    draftPackages = fixVersionsByYarnLock(draftPackages, yarnLock)
   }
 
-  return fixVersions(packagesWithProjectId)
+  draftPackages = fixProjectName(draftPackages, projectConfig)
+
+  return draftPackages
 }

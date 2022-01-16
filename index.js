@@ -1,6 +1,7 @@
 import {projects, projectsByName} from './projects.js'
 import {fetchProjectData} from './utils/fetchers.js'
-import {processTop100NoVersion} from './processors/top100.js'
+// import {processTop100NoVersion} from './processors/top100.js'
+import {createAllPackagesJSON} from './processors/createAllPackagesJSON.js'
 
 async function getAllData(projects) {
   const rawResults = await Promise.allSettled(projects.map(
@@ -16,7 +17,8 @@ async function getAllData(projects) {
 
 getAllData(projects)
   .then((results) => {
-    const top100 = processTop100NoVersion(results, projectsByName)
+    // const top100 = processTop100NoVersion(results, projectsByName)
+    // console.log('res:', top100);
 
-    console.log('res:', top100);
+    createAllPackagesJSON(results, projectsByName)
   })

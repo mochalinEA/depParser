@@ -1,5 +1,6 @@
 .env
 projects.js
+allPackages.json
 
 .idea
 .DS_Store

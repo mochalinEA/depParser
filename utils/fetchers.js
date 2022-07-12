@@ -4,7 +4,7 @@ import {fixProjectName, fixVersionsByPackageLock, fixVersionsByYarnLock} from '.
 
 const fetchRawPackages = async (projectConfig) => {
   try {
-    const packageJson = await fetchData(projectConfig.id, projectConfig.packageJsonPath)
+    const packageJson = await fetchData(projectConfig.id, projectConfig.branch, projectConfig.packageJsonPath)
     console.log(`${projectConfig.name}: package.json found`);
 
     return parsePackageJson(packageJson)
@@ -17,7 +17,7 @@ const fetchRawPackages = async (projectConfig) => {
 
 const fetchPackageLockJson = async (projectConfig) => {
   try {
-    const packageLockJson = await fetchData(projectConfig.id, projectConfig.packageLockJsonPath)
+    const packageLockJson = await fetchData(projectConfig.id, projectConfig.branch, projectConfig.packageLockJsonPath)
     console.log(`${projectConfig.name}: package-lock.json found`);
 
     return parsePackageLockJson(packageLockJson)
@@ -30,7 +30,7 @@ const fetchPackageLockJson = async (projectConfig) => {
 
 const fetchYarnLock = async (projectConfig) => {
   try {
-    const rawYarnLock = await fetchData(projectConfig.id, projectConfig.yarnLockPath)
+    const rawYarnLock = await fetchData(projectConfig.id, projectConfig.branch, projectConfig.yarnLockPath)
     console.log(`${projectConfig.name}: yarn.lock found`);
 
     return parseYarnLock(rawYarnLock)

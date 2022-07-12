@@ -2,14 +2,20 @@ export const projects = [
   {
     id: 123,
     name: 'project1',
+    title 'my cool project',
     packageJsonPath: 'package.json',
     packageLockJsonPath: 'package-lock.json',
+    branch: 'master',
+    weight: 1,
   },
   {
     id: 333,
     name: 'project2',
+    title: 'another cool project',
     packageJsonPath: 'app/package.json',
     yarnLockPath: 'app/yarn.lock',
+    branch: 'main',
+    weight: 2,
   }
 ]
 

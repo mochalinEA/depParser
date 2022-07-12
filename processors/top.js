@@ -1,4 +1,4 @@
-export const processTop100NoVersion = (results, projectsByName) => {
+export const processTop = (results, projectsByName, count = 10) => {
   const entries = results.reduce((acc, result) => {
     const key = result.name;
     const project = projectsByName[result.projectName]
@@ -22,13 +22,5 @@ export const processTop100NoVersion = (results, projectsByName) => {
       return b[1].weight - a[1].weight
     })
 
-  return sortedEntries.slice(0, 100)
-}
-
-
-const struct = {
-  react: {
-    weight: 100,
-    projectNames: ['one', 'two']
-  },
+  return sortedEntries.slice(0, count)
 }

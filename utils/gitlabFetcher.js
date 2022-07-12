@@ -2,13 +2,13 @@ import axios from 'axios'
 const GITLAB_API_URL = process.env.GITLAB_API_URL || ''
 const GITLAB_API_TOKEN = process.env.GITLAB_API_TOKEN || ''
 
-export const fetchData = async (projectId, path) => {
+export const fetchData = async (projectId, branch, path) => {
   const filePath = path !== ''
     ? path.replace(/\//g, '%2F')
     : ''
 
   const response = await axios({
-    url: `${GITLAB_API_URL}/${projectId}/repository/files/${filePath}?ref=master`,
+    url: `${GITLAB_API_URL}/${projectId}/repository/files/${filePath}?ref=${branch}`,
     method: 'get',
     headers: {
       'private-token': GITLAB_API_TOKEN

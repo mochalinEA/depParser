@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-export const createAllPackagesJSON = (results, projectsByName) => {
+export const createAllPackagesFile = (results, projectsByName, filename = 'allPackages.json') => {
   const entries = results.reduce((acc, result) => {
     const key = result.name;
     const project = projectsByName[result.projectName]
@@ -24,17 +24,9 @@ export const createAllPackagesJSON = (results, projectsByName) => {
       return b[1].weight - a[1].weight
     })
 
-  fs.writeFile('allPackages.json', JSON.stringify(sortedEntries), err => {
+  fs.writeFile(filename, JSON.stringify(sortedEntries), err => {
     if (err) {
       console.error(err)
     }
   })
-}
-
-
-const struct = {
-  react: {
-    weight: 100,
-    projectNames: ['one', 'two']
-  },
 }
